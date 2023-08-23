@@ -1,14 +1,13 @@
-# Use a Windows-compatible Nginx image
+# Use the base image from Microsoft's repository
 FROM mcr.microsoft.com/windows/servercore/iis
 
-# Copy index.html to the appropriate directory in the container
-COPY index.html C:\inetpub\wwwroot\
+# Copy index.html to the wwwroot folder
+COPY index.html C:\inetpub\wwwroot
 
-# Copy assets to the appropriate directory in the container
-COPY assets C:\inetpub\wwwroot\assets\
+# Copy assets folder to the wwwroot folder
+COPY assets C:\inetpub\wwwroot\assets
 
-# Expose the container's port
+# Expose port 80 to allow incoming traffic
 EXPOSE 80
-
-# Note: Adjust CMD based on the image you're using
-CMD ["CMD", "/C", "start", "C:\\ServiceMonitor.exe", "w3svc"]
+# Start the w3svc service using ServiceMonitor.exe
+CMD ["C:\\ServiceMonitor.exe", "w3svc"]
