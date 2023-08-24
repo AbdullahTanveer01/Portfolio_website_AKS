@@ -1,14 +1,19 @@
-# Use a base image
-FROM nginx:latest
+[build]
+  command = "npm install && npm run build" # Replace with your actual build command
+  publish = "dist" # This is the directory where the built site should be published
 
-# Copy index.html to the default nginx web root directory
-COPY index.html /usr/share/nginx/html/
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
 
-# Copy style.css from assets/css to the assets directory in the container
-COPY assets/css/style.css /usr/share/nginx/html/assets/css/
+[[headers]]
+  for = "/*"
+    [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    Content-Security-Policy = "frame-ancestors 'none'"
 
-# Expose port 80
-EXPOSE 80
-
-# Start the nginx server
-CMD ["nginx", "-g", "daemon off;"]
+[netlify]
+  auth = "ro2w5lhv55baslhketfh4awyyw2sdsknj66ncqwk6ado5wwn4dpa"
+  site = "fe2786f3-5089-4909-ada8-b0e2ebf86a9d"
