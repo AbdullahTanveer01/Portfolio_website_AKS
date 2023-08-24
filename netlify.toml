@@ -1,10 +1,6 @@
 [build]
-  command = "dotnet build CI\\ CD\\ CI\\ CD.csproj -c Release"
-  publish = "CI\\ CD/bin/Release/netcoreapp3.1/publish"
-  functions = "functions"
-
-[build.environment]
-  DOTNET_ROOT = "/opt/buildhome/dotnetcli"
+  command = "npm install && npm run build" # Replace with your actual build command
+  publish = "dist" # This is the directory where the built site should be published
 
 [[redirects]]
   from = "/*"
@@ -13,7 +9,7 @@
 
 [[headers]]
   for = "/*"
-  [headers.values]
+    [headers.values]
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
     Content-Security-Policy = "frame-ancestors 'none'"
