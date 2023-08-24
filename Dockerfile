@@ -1,14 +1,14 @@
-# Use the base image from Microsoft's repository
-FROM mcr.microsoft.com/windows/servercore/iis
+# Use a base image
+FROM nginx:latest
 
-# Copy index.html to the wwwroot folder
-COPY index.html C:\\inetpub\\wwwroot
+# Copy index.html to the default nginx web root directory
+COPY index.html /usr/share/nginx/html/
 
-# Copy assets folder to the wwwroot folder
-COPY assets C:\\inetpub\\wwwroot\\assets
+# Copy style.css from assets/css to the assets directory in the container
+COPY assets/css/style.css /usr/share/nginx/html/assets/css/
 
-# Expose port 80 to allow incoming traffic
+# Expose port 80
 EXPOSE 80
 
-# Start the w3svc service using ServiceMonitor.exe
-CMD ["C:\\ServiceMonitor.exe", "w3svc"]
+# Start the nginx server
+CMD ["nginx", "-g", "daemon off;"]
