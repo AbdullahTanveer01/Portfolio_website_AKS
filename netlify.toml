@@ -1,6 +1,6 @@
 [build]
-  command = "npm install && npm run build" # Replace with your actual build command
-  publish = "dist" # This is the directory where the built site should be published
+  command = ""  # No build command needed since you're using a Dockerfile
+  publish = "usr/share/nginx/html"  # Publish the files from this directory
 
 [[redirects]]
   from = "/*"
